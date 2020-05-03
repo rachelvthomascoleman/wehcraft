@@ -19,11 +19,24 @@ def hello_world():
     resp.headers["Content-Type"] = "application/json"
     return resp
 
-@app.route('/goodbye',methods=["POST"]) #Only POST requests
+@app.route('/goodbye', methods=["POST"]) #Only POST requests
 def goodbye_world():
+    #Compare password to header on GET request
+    headers = request.headers()
     #Close application
-    #sys.exit(2) #exit python - only works from main thread
     os._exit(2) #kill python without calling cleanup handlers - not recommended
+
+@app.route('/password', methods=["GET"]) #Only GET requests
+def get_password():
+    #Get password out of environment variable
+    password = os.environ.get('SECRET_PASSWORD', 'asdf')
+    #Return password
+    retval = {
+        "password": password
+    }
+    resp = app.make_response(json.dumps(retval))
+    resp.headers["Content-Type"] = "application/json"
+    return resp
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
