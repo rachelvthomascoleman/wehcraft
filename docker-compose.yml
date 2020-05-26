@@ -1,12 +1,10 @@
 version: "3.8"
 
 services:
-    lesson4:
+    discord_bot:
         build:
             context: .
             dockerfile: Dockerfile
-            network: host
-        ports:
-            - "80:5001"
-        environment:
-            SECRET_PASSWORD: 'fdsa'
+            network: bridge
+        env_file:
+            - .env
