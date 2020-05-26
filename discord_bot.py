@@ -18,4 +18,21 @@ async def on_ready():
     #send message to the channel
     await channel.send('weh')
 
+@client.event
+async def on_message(message):
+    if(message.author.bot):
+        return
+    if('weh' in message.content.lower()):
+        await message.channel.send('weh')
+    if('!start' == message.content):
+        await start_server(message)
+    if('!stop' == message.content):
+        await stop_server(message)
+
+async def start_server(message):
+    await message.channel.send('weh would start server')
+
+async def stop_server(message):
+    await message.channel.send('weh would stop server')
+
 client.run(TOKEN)
