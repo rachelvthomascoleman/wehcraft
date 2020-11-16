@@ -10,7 +10,9 @@ MC_ADMIN_ROLE = os.getenv('DISCORD_ADMIN_ROLE_ID')
 MINECRAFT_INSTANCE_ID = os.getenv('MINECRAFT_INSTANCE_ID')
 REGION = os.getenv('AWS_REGION')
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
